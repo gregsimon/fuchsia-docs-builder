@@ -21,13 +21,11 @@ groupname = "Uncategorized"
 
 # Try to find the group name, it will be of the form"
 # module <name>;
-# TODO replace the . with something that won't confuse doxygen.
-# Currently we only parse to the .
+# We replace the . with something that won't confuse doxygen.
 for line in lines:
   if line.find('module') == 0:
-    #groupname = re.split('module|\t| *|;|\n', line[6:])[1]
     try:
-      groupname = re.search('module[ *](.+?)[\;\.]' ,line).group(1)
+      groupname = re.search('module[ *](.+?)[\;]' ,line).group(1).replace('.', '_')
     except AttributeError:
       groupname = 'Uncategorized'
       #print 'error!'
